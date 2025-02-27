@@ -378,4 +378,11 @@
       <Button label={"View Deployment"} onClick={() => window.open(deploymentUrl, "_blank")} type="secondary" />
     {/if}
   {/if}
+
+  <div class="mt-2">
+    <Message
+      message="Tip: Ensure you have an Explorer API Key set in your <u><a href='https://defender.openzeppelin.com/#/deploy' target='_blank'>Deploy Environment</a></u> for this network to allow the contract to be verified automatically."
+      type="tip"
+    />
+  </div>
 </div>
