@@ -13,6 +13,7 @@
   import Button from "./shared/Button.svelte";
   import Input from "./shared/Input.svelte";
   import Message from "./shared/Message.svelte";
+  import fileSaver from "file-saver";
 
   // debounce the compile call to avoid sending too many requests while the user is editing.
   const compileDebounced = debouncer(compile, 600);
@@ -324,6 +325,13 @@
     isDeploying = false;
   }
 
+  const downloadSolcInputHandler = async () => {
+    if (deploymentArtifact !== undefined && globalState?.contract?.target !== undefined) {
+      const blob = new Blob([JSON.stringify(deploymentArtifact?.input, null, 2)], { type: 'text/plain' });
+      fileSaver.saveAs(blob, `${globalState.contract.target}-solc-input.json`);
+    }
+  };
+
 </script>
 
 <div class="flex flex-col gap-2">
@@ -379,10 +387,13 @@
     {/if}
   {/if}
 
-  <div class="mt-2">
-    <Message
-      message="Tip: Ensure you have an Explorer API Key set in your <u><a href='https://defender.openzeppelin.com/#/deploy' target='_blank'>Deploy Environment</a></u> for this network to allow the contract to be verified automatically."
-      type="tip"
-    />
+  <div class="alert alert-success d-flex align-items-center mt-2">
+    <div class="flex flex-row items-center gap-2">
+      <i class={`fa fa-lightbulb-o text-lime-600`}></i>
+      <div class="text-xs text-gray-600">
+        <p>Ensure you have an Explorer API Key set in your <u><a href='https://defender.openzeppelin.com/#/deploy' target='_blank'>Deploy Environment</a></u> for the current network to allow the contract to be verified automatically.</p>
+        <p class="mt-2">Or download the <button type="button" onclick={downloadSolcInputHandler}><u>Solidity standard input JSON</u></button> for this contract to verify it manually.</p>
+      </div>
+    </div>
   </div>
 </div>
