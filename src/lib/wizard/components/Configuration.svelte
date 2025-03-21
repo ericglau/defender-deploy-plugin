@@ -13,13 +13,6 @@
   let apiKey = $state(globalState.credentials?.apiKey ?? "");
   let apiSecret = $state(globalState.credentials?.apiSecret ?? "");
 
-  function handleGetApiKey() {
-    window.open(
-      "https://defender.openzeppelin.com/#/settings/api-keys",
-      "_blank",
-    );
-  }
-
   async function authenticate() {
     loading = true;
     successMessage = undefined;
@@ -70,7 +63,24 @@
 
 <div class="flex flex-col gap-2">
   <div class="flex flex-row">
-    <button onclick={handleGetApiKey} class="text-xs text-blue-600 font-bold">Get API Key from OpenZeppelin Defender</button>
+    <small>
+      Use this to deploy with OpenZeppelin Defender.<br
+      />&nbsp;<br />
+      To get started, you need to have an
+      <a
+        href="https://defender.openzeppelin.com/"
+        target="_blank"
+        class="text-blue-600 font-bold">OpenZeppelin Defender account</a
+      >
+      (it's free) and setup an
+      <a
+        href="https://defender.openzeppelin.com/#/settings/api-keys"
+        class="text-blue-600 font-bold"
+        target="_blank"
+      >
+        API Key and Secret</a
+      >.
+    </small>
   </div>
   <div class="flex flex-row justify-between">
     <div>
